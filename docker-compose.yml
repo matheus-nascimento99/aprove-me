@@ -1,0 +1,25 @@
+version: '2.27.0'
+
+services:
+  aprove-me-api:
+    container_name: aprove-me-api
+    environment:
+      - DATABASE_URL=file:./dev.db
+    build: 
+      context: ./backend
+    ports:
+      - 4000:4000
+    networks:
+      - aprove-me-network
+  
+  aprove-me-frontend:
+    container_name: aprove-me-frontend
+    build: 
+      context: ./frontend
+    ports:
+      - 3000:3000
+    networks:
+      - aprove-me-network
+
+networks:
+  aprove-me-network:
