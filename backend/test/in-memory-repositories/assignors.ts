@@ -9,18 +9,20 @@ import { Assignor } from 'src/domain/assignors-receivables-management/enterprise
 import { FilterParams } from '@/core/@types/filter-params'
 import { FetchAssignorsFilterParams } from '@/domain/assignors-receivables-management/application/use-cases/fetch-assignors'
 
+import { InMemoryUsersRepository } from './users'
+
 export class InMemoryAssignorsRepository implements AssignorsRepository {
-  public items: Assignor[] = []
+  constructor(private inMemoryUsersRepository: InMemoryUsersRepository) {}
 
   async create(assignor: Assignor): Promise<void> {
-    this.items.push(assignor)
+    this.inMemoryUsersRepository.items.push(assignor)
   }
 
   async findMany(
     { page, limit }: PaginationParamsRequest,
     { name, email, phone, document }: FilterParams<FetchAssignorsFilterParams>,
   ): Promise<PaginationParamsResponse<Assignor>> {
-    let assignors = this.items
+    let assignors = this.inMemoryUsersRepository.items
 
     if (name) {
       assignors = assignors.filter((assignor) => assignor.name.includes(name))
@@ -67,7 +69,9 @@ export class InMemoryAssignorsRepository implements AssignorsRepository {
   }
 
   async findById(assignorId: UniqueEntityId): Promise<Assignor | null> {
-    const assignor = this.items.find((item) => item.id.equals(assignorId))
+    const assignor = this.inMemoryUsersRepository.items.find((item) =>
+      item.id.equals(assignorId),
+    )
 
     if (!assignor) {
       return null
@@ -77,7 +81,9 @@ export class InMemoryAssignorsRepository implements AssignorsRepository {
   }
 
   async findByEmail(assignorEmail: string): Promise<Assignor | null> {
-    const assignor = this.items.find((item) => item.email === assignorEmail)
+    const assignor = this.inMemoryUsersRepository.items.find(
+      (item) => item.email === assignorEmail,
+    )
 
     if (!assignor) {
       return null
@@ -87,7 +93,7 @@ export class InMemoryAssignorsRepository implements AssignorsRepository {
   }
 
   async findByPhone(assignorPhone: string): Promise<Assignor | null> {
-    const assignor = this.items.find(
+    const assignor = this.inMemoryUsersRepository.items.find(
       (item) => item.phone.value === assignorPhone,
     )
 
@@ -99,7 +105,7 @@ export class InMemoryAssignorsRepository implements AssignorsRepository {
   }
 
   async findByDocument(assignorDocument: string): Promise<Assignor | null> {
-    const assignor = this.items.find(
+    const assignor = this.inMemoryUsersRepository.items.find(
       (item) => item.document.value === assignorDocument,
     )
 
@@ -111,18 +117,18 @@ export class InMemoryAssignorsRepository implements AssignorsRepository {
   }
 
   async save(assignorId: UniqueEntityId, assignor: Assignor): Promise<void> {
-    const assignorIndex = this.items.findIndex((item) =>
+    const assignorIndex = this.inMemoryUsersRepository.items.findIndex((item) =>
       item.id.equals(assignorId),
     )
 
-    this.items[assignorIndex] = assignor
+    this.inMemoryUsersRepository.items[assignorIndex] = assignor
   }
 
   async delete(assignorId: UniqueEntityId): Promise<void> {
-    const assignorIndex = this.items.findIndex((item) =>
+    const assignorIndex = this.inMemoryUsersRepository.items.findIndex((item) =>
       item.id.equals(assignorId),
     )
 
-    this.items.splice(assignorIndex, 1)
+    this.inMemoryUsersRepository.items.splice(assignorIndex, 1)
   }
 }
