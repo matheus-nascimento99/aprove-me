@@ -5,6 +5,7 @@ services:
     container_name: aprove-me-api
     environment:
       - DATABASE_URL=file:./dev.db
+      - PORT=4000
     build: 
       context: ./backend
     ports:
