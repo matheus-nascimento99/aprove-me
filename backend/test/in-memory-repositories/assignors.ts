@@ -3,11 +3,11 @@ import {
   PaginationParamsResponse,
 } from 'src/core/@types/pagination-params'
 import { UniqueEntityId } from 'src/core/value-objects/unique-entity-id'
-import { AssignorsRepository } from 'src/domain/assignors-receivables-management/application/repositories/assignors'
-import { Assignor } from 'src/domain/assignors-receivables-management/enterprise/entities/assignor'
+import { AssignorsRepository } from 'src/domain/assignors-payables-management/application/repositories/assignors'
+import { Assignor } from 'src/domain/assignors-payables-management/enterprise/entities/assignor'
 
 import { FilterParams } from '@/core/@types/filter-params'
-import { FetchAssignorsFilterParams } from '@/domain/assignors-receivables-management/application/use-cases/fetch-assignors'
+import { FetchAssignorsFilterParams } from '@/domain/assignors-payables-management/application/use-cases/fetch-assignors'
 
 import { InMemoryUsersRepository } from './users'
 

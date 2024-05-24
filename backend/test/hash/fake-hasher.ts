@@ -8,7 +8,7 @@ export class FakeHasher implements HashComparer, HashCreator {
     return plainHashed
   }
 
-  compare(plain: string, hash: string): boolean {
+  async compare(plain: string, hash: string): Promise<boolean> {
     const isEqual = `${plain}-hashed` === hash
 
     return isEqual

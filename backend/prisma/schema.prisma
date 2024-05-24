@@ -11,7 +11,27 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-  name  String
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  phone    String @unique
+  document String @unique
+  password String
+  role     String @default("ASSIGNOR")
+
+  payables Payable[]
+
+  @@index([email, phone, document])
+  @@map("users")
+}
+
+model Payable {
+  id           String   @id @default(uuid())
+  value        Float
+  assignor     User     @relation(fields: [assignorId], references: [id])
+  emissionDate DateTime @default(now()) @map("emission_date")
+
+  assignorId String
+
+  @@map("payables")
 }

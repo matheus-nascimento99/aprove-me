@@ -18,7 +18,7 @@ describe('Hasher', () => {
     const plain = 'test'
     const plainHashed = 'test-hashed'
 
-    const isEqual = fakeHasher.compare(plain, plainHashed)
+    const isEqual = await fakeHasher.compare(plain, plainHashed)
 
     expect(isEqual).toEqual(true)
   })

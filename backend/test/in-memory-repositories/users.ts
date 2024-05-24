@@ -1,8 +1,8 @@
-import { UsersRepository } from '@/domain/assignors-receivables-management/application/repositories/users'
+import { UsersRepository } from '@/domain/assignors-payables-management/application/repositories/users'
 import {
   User,
   UserProps,
-} from '@/domain/assignors-receivables-management/enterprise/entities/user'
+} from '@/domain/assignors-payables-management/enterprise/entities/user'
 
 export class InMemoryUsersRepository implements UsersRepository {
   public items: User<UserProps>[] = []
