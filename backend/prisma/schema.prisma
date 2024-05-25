@@ -28,7 +28,7 @@ model User {
 model Payable {
   id           String   @id @default(uuid())
   value        Float
-  assignor     User     @relation(fields: [assignorId], references: [id])
+  assignor     User     @relation(fields: [assignorId], references: [id], onDelete: Cascade)
   emissionDate DateTime @default(now()) @map("emission_date")
 
   assignorId String

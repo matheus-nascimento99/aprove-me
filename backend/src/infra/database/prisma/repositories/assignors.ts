@@ -46,8 +46,8 @@ export class PrismaAssignorsRepository implements AssignorsRepository {
       where.phone = { contains: filterParams.phone as string }
     }
 
-    if (filterParams.email) {
-      where.email = { contains: filterParams.email as string }
+    if (filterParams.document) {
+      where.document = { contains: filterParams.document as string }
     }
 
     const [assignors, total] = await this.prisma.$transaction([

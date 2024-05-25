@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import { Either, left, right } from 'src/core/either'
 import { ResourceNotFoundError } from 'src/core/errors/resource-not-found'
 import { UniqueEntityId } from 'src/core/value-objects/unique-entity-id'
@@ -10,6 +11,7 @@ type DeleteAssignorUseCaseRequest = {
 
 type DeleteAssignorUseCaseResponse = Either<ResourceNotFoundError, unknown>
 
+@Injectable()
 export class DeleteAssignorUseCase {
   constructor(private assignorsRepository: AssignorsRepository) {}
 

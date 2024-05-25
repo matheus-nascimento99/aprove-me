@@ -22,7 +22,7 @@ export const makeAssignor = (
       email: faker.internet.email(),
       phone: Raw.createFromText(faker.phone.number()),
       password: faker.internet.password(),
-      document: Raw.create(String(faker.number.int({ min: 11, max: 14 }))),
+      document: Raw.create(faker.string.numeric(30)),
       ...override,
     },
     id,

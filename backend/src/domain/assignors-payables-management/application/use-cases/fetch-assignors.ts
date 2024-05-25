@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import { FilterParams } from 'src/core/@types/filter-params'
 import {
   PaginationParamsRequest,
@@ -21,10 +22,10 @@ type FetchAssignorsUseCaseRequest = {
 }
 
 type FetchAssignorsUseCaseResponse = Either<
-  unknown,
+  null,
   PaginationParamsResponse<Assignor>
 >
-
+@Injectable()
 export class FetchAssignorsUseCase {
   constructor(private assignorsRepository: AssignorsRepository) {}
 
@@ -32,9 +33,11 @@ export class FetchAssignorsUseCase {
     filterParams,
     paginationParams,
   }: FetchAssignorsUseCaseRequest): Promise<FetchAssignorsUseCaseResponse> {
-    const { items, total, next, prev } =
-      await this.assignorsRepository.findMany(paginationParams, filterParams)
+    const assignors = await this.assignorsRepository.findMany(
+      paginationParams,
+      filterParams,
+    )
 
-    return right({ items, total, next, prev })
+    return right(assignors)
   }
 }
