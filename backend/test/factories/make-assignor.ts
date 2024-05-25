@@ -19,7 +19,7 @@ export const makeAssignor = (
   const assignor = Assignor.create(
     {
       name: faker.person.fullName(),
-      email: faker.internet.email(),
+      email: faker.internet.email().toLowerCase(),
       phone: Raw.createFromText(faker.phone.number()),
       password: faker.internet.password(),
       document: Raw.create(faker.string.numeric(30)),

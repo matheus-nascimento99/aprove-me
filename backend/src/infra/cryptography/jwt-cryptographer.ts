@@ -7,7 +7,10 @@ import { Cryptographer } from '@/core/cryptography/cryptographer'
 export class JwtCryptographer implements Cryptographer {
   constructor(private jwt: JwtService) {}
 
-  encrypt(payload: Record<string, unknown>) {
-    return this.jwt.signAsync(payload)
+  async encrypt(payload: Record<string, unknown>, expiresIn: string = '1m') {
+    const accessToken = await this.jwt.signAsync(payload, {
+      expiresIn,
+    })
+    return accessToken
   }
 }

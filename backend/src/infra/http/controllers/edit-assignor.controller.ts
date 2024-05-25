@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Body,
+  ConflictException,
   Controller,
   HttpCode,
   InternalServerErrorException,
@@ -63,11 +64,11 @@ export class EditAssignorController {
         case ResourceNotFoundError:
           throw new BadRequestException(error.message)
         case AssignorWithSameEmailAlreadyExistsError:
-          throw new BadRequestException(error.message)
+          throw new ConflictException(error.message)
         case AssignorWithSamePhoneAlreadyExistsError:
-          throw new BadRequestException(error.message)
+          throw new ConflictException(error.message)
         case AssignorWithSameDocumentAlreadyExistsError:
-          throw new BadRequestException(error.message)
+          throw new ConflictException(error.message)
         default:
           throw new InternalServerErrorException()
       }

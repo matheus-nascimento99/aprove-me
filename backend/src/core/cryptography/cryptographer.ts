@@ -1,3 +1,6 @@
 export abstract class Cryptographer {
-  abstract encrypt(record: Record<string, unknown>): Promise<string>
+  abstract encrypt(
+    record: Record<string, unknown>,
+    expiresIn?: string,
+  ): Promise<string>
 }

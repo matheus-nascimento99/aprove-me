@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import { Either, left, right } from 'src/core/either'
 
 import { Cryptographer } from '@/core/cryptography/cryptographer'
@@ -14,9 +15,9 @@ type AuthenticateUseCaseRequest = {
 
 type AuthenticateUseCaseResponse = Either<
   InvalidCredentialsError,
-  { user: Omit<User<UserProps>, 'password'>; token: string }
+  { user: User<UserProps>; token: string; refreshToken: string }
 >
-
+@Injectable()
 export class AuthenticateUseCase {
   constructor(
     private usersRepository: UsersRepository,
@@ -43,10 +44,17 @@ export class AuthenticateUseCase {
       return left(new InvalidCredentialsError())
     }
 
-    const { password: pass, ...rest } = user // eslint-disable-line
+    const { password: undefided, ...rest } = user // eslint-disable-line
 
-    const token = await this.cryptographer.encrypt({ ...rest })
+    const token = await this.cryptographer.encrypt({ sub: user.id.toString() })
 
-    return right({ user: rest as Omit<User<UserProps>, 'password'>, token })
+    const refreshToken = await this.cryptographer.encrypt(
+      {
+        sub: user.id.toString(),
+      },
+      '10m',
+    )
+
+    return right({ user, token, refreshToken })
   }
 }

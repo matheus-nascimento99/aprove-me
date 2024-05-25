@@ -1,4 +1,9 @@
-import { BadRequestException, Controller, Get, Query } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Query,
+} from '@nestjs/common'
 import z from 'zod'
 
 import { Raw } from '@/core/value-objects/raw'
@@ -55,7 +60,7 @@ export class FetchAssignorsController {
     })
 
     if (result.isLeft()) {
-      throw new BadRequestException()
+      throw new InternalServerErrorException()
     }
 
     return {

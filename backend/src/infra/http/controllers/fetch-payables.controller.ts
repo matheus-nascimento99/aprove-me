@@ -1,4 +1,9 @@
-import { BadRequestException, Controller, Get, Query } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Query,
+} from '@nestjs/common'
 import z from 'zod'
 
 import { CurrentUser } from '@/auth/current-user'
@@ -32,7 +37,7 @@ export class FetchPayablesController {
     })
 
     if (result.isLeft()) {
-      throw new BadRequestException()
+      throw new InternalServerErrorException()
     }
 
     return {
