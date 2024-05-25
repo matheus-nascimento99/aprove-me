@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import { FilterParams } from 'src/core/@types/filter-params'
 import {
   PaginationParamsRequest,
@@ -24,7 +25,7 @@ type FetchPayablesUseCaseResponse = Either<
   ResourceNotFoundError,
   PaginationParamsResponse<Payable>
 >
-
+@Injectable()
 export class FetchPayablesUseCase {
   constructor(
     private payablesRepository: PayablesRepository,
