@@ -12,15 +12,6 @@ services:
       - 4000:4000
     networks:
       - aprove-me-network
-  
-  aprove-me-frontend:
-    container_name: aprove-me-frontend
-    build: 
-      context: ./frontend
-    ports:
-      - 3000:3000
-    networks:
-      - aprove-me-network
 
 networks:
   aprove-me-network:
